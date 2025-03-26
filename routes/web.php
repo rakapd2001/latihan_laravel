@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExampleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,5 @@ Route::get('/', function () {
 
 Route::get('/hello', [ExampleController::class, 'sayHello']);
 Route::get('/user', [UserController::class, 'index'])->middleware('auth.login');
+
+Route::resource('posts', PostController::class);
