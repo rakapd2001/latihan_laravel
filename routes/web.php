@@ -16,11 +16,12 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+// routes/web.php
 Route::get('/hello', [ExampleController::class, 'sayHello']);
 Route::get('/user', [UserController::class, 'index'])->middleware('auth.login');
 
 Route::resource('posts', PostController::class);
+
+Route::get('/{any}', function () {
+    return view('layout'); // satu-satunya Blade yang digunakan
+})->where('any', '.*');
