@@ -20,6 +20,8 @@ use App\Http\Controllers\PostController;
 Route::get('/hello', [ExampleController::class, 'sayHello']);
 Route::get('/user', [UserController::class, 'index'])->middleware('auth.login');
 
+Route::get('/profile/export-pdf', [PostController::class, 'exportPDF'])->name('profile.export-pdf');
+
 Route::resource('posts', PostController::class);
 
 Route::get('/{any}', function () {

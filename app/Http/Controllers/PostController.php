@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PostController extends Controller
 {
@@ -25,7 +26,7 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'content' => 'required'
+            'content' => 'required',
         ]);
 
         Post::create($request->all());
@@ -49,7 +50,7 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'content' => 'required'
+            'content' => 'required',
         ]);
 
         $post->update($request->all());
@@ -61,5 +62,14 @@ class PostController extends Controller
     {
         $post->delete();
         return redirect()->route('posts.index')->with('success', 'Post berhasil dihapus.');
+    }
+    
+    // Menampilkan PDF
+    public function exportPDF()
+    {
+        $posts = Post::all(); 
+        $pdf = Pdf::loadView('exports.posts-pdf', compact('posts'));
+
+        return $pdf->download('data-postingan.pdf');
     }
 }
