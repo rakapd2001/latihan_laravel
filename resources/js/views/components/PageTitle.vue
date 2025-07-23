@@ -4,9 +4,10 @@
     <div class="mx-auto px-4 sm:container">
       <div class=" flex items-center justify-between md:flex">
         <div class=" mb-6 w-full">
-          <h2 class="text-2xl font-semibold dark:text-white border border-black rounded-full px-4 py-2 inline-block">
-            {{ title }}
-          </h2>
+          <h2 class="text-2xl font-semibold border border-gray-400 rounded-full px-4 py-2 inline-block dark:border-white dark:text-white">
+    {{ title }}
+</h2>
+
         </div>
         <div class="mb-6">
           <router-link

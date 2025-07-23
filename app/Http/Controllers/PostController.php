@@ -9,11 +9,12 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class PostController extends Controller
 {
     // Menampilkan semua data
-    public function index()
-    {
-        $posts = Post::all();
-        return view('posts.index', compact('posts'));
-    }
+ public function index()
+{
+    $posts = Post::orderBy('created_at', 'desc')->get();
+    return view('posts.index', compact('posts'));
+}
+
 
     // Menampilkan form tambah data
     public function create()
@@ -66,10 +67,12 @@ class PostController extends Controller
     
     // Menampilkan PDF
     public function exportPDF()
-    {
-        $posts = Post::all(); 
-        $pdf = Pdf::loadView('exports.posts-pdf', compact('posts'));
+        {
+            $posts = Post::all(); 
+            $date = date('Y-m-d_H-i-s'); // PHP native function
+            $pdf = Pdf::loadView('exports.posts-pdf', compact('posts', 'date'));
+            $filename = 'Posts_' . $date . '.pdf';
 
-        return $pdf->download('data-postingan.pdf');
-    }
+            return $pdf->download($filename);
+        }
 }

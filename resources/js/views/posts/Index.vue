@@ -6,7 +6,7 @@
       <li
         v-for="post in posts"
         :key="post.id"
-        class="bg-white border border-gray-800 dark:bg-gray-800 rounded-xl shadow-md p-5 relative"
+        class="bg-white border-2 border-gray-400  dark:bg-gray-800 rounded-xl shadow-md p-5 relative"
 
       >
         <!-- Tanggal dibuat -->

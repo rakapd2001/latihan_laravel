@@ -12,5 +12,8 @@
 
 <script setup>
 import TheNavbar from '../views/components/TheNavbar.vue'
+const user = window.user; // Ambil user dari Laravel
+const isLoggedIn = user !== null;
+console.log('DefaultLayout dimuat');
 </script>
 
