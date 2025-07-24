@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PostController extends Controller
 {
     // Menampilkan semua data
-    public function index()
-    {
-        $posts = Post::all();
-        return view('posts.index', compact('posts'));
-    }
+ public function index()
+{
+    $posts = Post::orderBy('created_at', 'desc')->get();
+    return view('posts.index', compact('posts'));
+}
+
 
     // Menampilkan form tambah data
     public function create()
@@ -25,7 +27,7 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'content' => 'required'
+            'content' => 'required',
         ]);
 
         Post::create($request->all());
@@ -49,7 +51,7 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'content' => 'required'
+            'content' => 'required',
         ]);
 
         $post->update($request->all());
@@ -62,4 +64,15 @@ class PostController extends Controller
         $post->delete();
         return redirect()->route('posts.index')->with('success', 'Post berhasil dihapus.');
     }
+    
+    // Menampilkan PDF
+    public function exportPDF()
+        {
+            $posts = Post::all(); 
+            $date = date('Y-m-d_H-i-s'); // PHP native function
+            $pdf = Pdf::loadView('exports.posts-pdf', compact('posts', 'date'));
+            $filename = 'Posts_' . $date . '.pdf';
+
+            return $pdf->download($filename);
+        }
 }
